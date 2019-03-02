@@ -41,6 +41,7 @@ class Signin extends Component {
       email: '',
       password: '',
       error: '',
+      role: '',
       redirectToReferrer: false
   }
 
