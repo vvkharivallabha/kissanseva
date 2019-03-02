@@ -41,6 +41,7 @@ class Signup extends Component {
       name: '',
       password: '',
       email: '',
+      role: 'Farmer',
       open: false,
       error: ''
   }
@@ -53,7 +54,8 @@ class Signup extends Component {
     const user = {
       name: this.state.name || undefined,
       email: this.state.email || undefined,
-      password: this.state.password || undefined
+      password: this.state.password || undefined,
+      role: this.state.role || undefined
     }
     create(user).then((data) => {
       if (data.error) {
@@ -74,7 +76,38 @@ class Signup extends Component {
           </Typography>
           <TextField id="name" label="Name" className={classes.textField} value={this.state.name} onChange={this.handleChange('name')} margin="normal"/><br/>
           <TextField id="email" type="email" label="Email" className={classes.textField} value={this.state.email} onChange={this.handleChange('email')} margin="normal"/><br/>
-          <TextField id="password" type="password" label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange('password')} margin="normal"/>
+          <TextField id="password" type="password" label="Password" className={classes.textField} value={this.state.password} onChange={this.handleChange('password')} margin="normal"/><br/>
+          <label>Role</label><br/>
+          <input
+              type="radio"
+              name="Options"
+              id="Farmer_Radio"
+              value="Farmer"
+              checked={this.state.role === "Farmer"}
+              onChange={this.handleChange('role')}
+              style= {{margin: 5}}
+            />
+            <label style= {{margin: 10}}>Farmer</label>
+            <input
+              type="radio"
+              name="Options"
+              id="Supplier_Radio"
+              value="Supplier"
+              checked={this.state.role === "Supplier"}
+              onChange={this.handleChange('role')}
+              style= {{margin: 5}} 
+            />
+            <label style= {{margin: 10}}>Supplier</label>
+            <input
+              type="radio"
+              name="Options"
+              id="Retailer_Radio"
+              value="Retailer"
+              checked={this.state.role === "Retailer"}
+              onChange={this.handleChange('role')}
+              style= {{margin: 5}}
+            />
+            <label style= {{margin: 10}}>Retailer</label>
           <br/> {
             this.state.error && (<Typography component="p" color="error">
               <Icon color="error" className={classes.error}>error</Icon>
