@@ -14,9 +14,6 @@ const isActive = (history, path) => {
   else return { color: "#ffffff" };
 };
 
-if (auth.isAuthenticated()) {
-  console.log(auth.isAuthenticated().user);
-}
 
 const Menu = withRouter(({ history }) => (
   <AppBar position="static">
@@ -48,31 +45,32 @@ const Menu = withRouter(({ history }) => (
           )}
           {auth.isAuthenticated() && (
             <span>
-              {/* {(auth.isAuthenticated().user.role === "Farmer" ||
-                auth.isAuthenticated().user.role === "Retailer") && ( */}
-              <Link to="/buy">
-                <Button
-                  style={isActive(
-                    history,
-                    "/user/" + auth.isAuthenticated().user._buy
-                  )}
-                >
-                  BUY
-                </Button>
-              </Link>
-
-              {/* {(auth.isAuthenticated().user.role === "Farmer" ||
-                auth.isAuthenticated().user.role === "Supplier") && ( */}
-              <Link to="/sell">
-                <Button
-                  style={isActive(
-                    history,
-                    "/user/" + auth.isAuthenticated().user._sell
-                  )}
-                >
-                  SELL
-                </Button>
-              </Link>
+              {(auth.isAuthenticated().user.role === "Farmer" ||
+                auth.isAuthenticated().user.role === "Retailer") && (
+                <Link to="/buy">
+                  <Button
+                    style={isActive(
+                      history,
+                      "/user/" + auth.isAuthenticated().user._buy
+                    )}
+                  >
+                    BUY
+                  </Button>
+                </Link>
+              )}
+              {(auth.isAuthenticated().user.role === "Farmer" ||
+                auth.isAuthenticated().user.role === "Supplier") && (
+                <Link to="/sell">
+                  <Button
+                    style={isActive(
+                      history,
+                      "/user/" + auth.isAuthenticated().user._sell
+                    )}
+                  >
+                    SELL
+                  </Button>
+                </Link>
+              )}
 
               <Link to={"/user/" + auth.isAuthenticated().user._id}>
                 <Button
