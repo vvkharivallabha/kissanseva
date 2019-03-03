@@ -6,6 +6,7 @@ import fs from "fs";
 import profileImage from "./../../client/assets/images/profile-pic.png";
 
 const create = (req, res, next) => {
+   const user = new User(req.body);
   user.save((err, result) => {
     if (err) {
       return res.status(400).json({
