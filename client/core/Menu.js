@@ -14,6 +14,10 @@ const isActive = (history, path) => {
   else return { color: "#ffffff" };
 };
 
+if (auth.isAuthenticated()) {
+  console.log(auth.isAuthenticated().user);
+}
+
 const Menu = withRouter(({ history }) => (
   <AppBar position="static">
     <Toolbar>
@@ -27,25 +31,26 @@ const Menu = withRouter(({ history }) => (
       </Link>
       <div style={{ position: "absolute", right: "10px" }}>
         <span style={{ float: "right" }}>
-      {!auth.isAuthenticated() && (
-        <span>
-          <Link to="/signup">
-            <Button style={isActive(history, "/signup")}>Sign up</Button>
-          </Link>
-          <Link to="/signin">
-            <Button
-              className="float-right"
-              style={isActive(history, "/signin")}
-            >
-              Sign In
-            </Button>
-          </Link>
-        </span>
-      )}
+          {!auth.isAuthenticated() && (
+            <span>
+              <Link to="/signup">
+                <Button style={isActive(history, "/signup")}>Sign up</Button>
+              </Link>
+              <Link to="/signin">
+                <Button
+                  className="float-right"
+                  style={isActive(history, "/signin")}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </span>
+          )}
           {auth.isAuthenticated() && (
             <span>
-              
-              <Link to='/buy'>
+              {/* {(auth.isAuthenticated().user.role === "Farmer" ||
+                auth.isAuthenticated().user.role === "Retailer") && ( */}
+              <Link to="/buy">
                 <Button
                   style={isActive(
                     history,
@@ -55,8 +60,10 @@ const Menu = withRouter(({ history }) => (
                   BUY
                 </Button>
               </Link>
-              
-              <Link to='/sell'>
+
+              {/* {(auth.isAuthenticated().user.role === "Farmer" ||
+                auth.isAuthenticated().user.role === "Supplier") && ( */}
+              <Link to="/sell">
                 <Button
                   style={isActive(
                     history,

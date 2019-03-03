@@ -57,6 +57,7 @@ class EditProfile extends Component {
       about: '',
       photo: '',
       email: '',
+      role: '',
       password: '',
       redirectToProfile: false,
       error: ''
@@ -73,7 +74,7 @@ class EditProfile extends Component {
       if (data.error) {
         this.setState({error: data.error})
       } else {
-        this.setState({id: data._id, name: data.name, email: data.email, about: data.about})
+        this.setState({id: data._id, name: data.name, email: data.email,role: data.role, about: data.about})
       }
     })
   }
@@ -83,6 +84,7 @@ class EditProfile extends Component {
       name: this.state.name || undefined,
       email: this.state.email || undefined,
       password: this.state.password || undefined,
+      role: this.state.role || undefined,
       about: this.state.about || undefined
     }
     update({

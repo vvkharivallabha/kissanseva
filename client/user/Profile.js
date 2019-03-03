@@ -127,7 +127,7 @@ class Profile extends Component {
             <ListItemAvatar>
               <Avatar src={photoUrl} className={classes.bigAvatar}/>
             </ListItemAvatar>
-            <ListItemText primary={this.state.user.name} secondary={this.state.user.email}/> {
+            <ListItemText primary={this.state.user.name} secondary={"email: "+this.state.user.email+" "+", role: "+this.state.user.role}/> {
              auth.isAuthenticated().user && auth.isAuthenticated().user._id == this.state.user._id
              ? (<ListItemSecondaryAction>
                   <Link to={"/user/edit/" + this.state.user._id}>
