@@ -117,12 +117,12 @@ class Newsfeed extends Component {
           <NewPost addUpdate={this.addPost} />
         )}
         <Divider />
-        {window.location.pathname == "/buy" && (
+        {/* {window.location.pathname == "/buy" && (
           <BuyPostList
             removeUpdate={this.removeSellPost}
             posts={this.state.sellposts}
           />
-        )}
+        )} */}
         {window.location.pathname == "/" && (
           <PostList removeUpdate={this.removePost} posts={this.state.posts} />
         )}

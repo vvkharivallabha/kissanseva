@@ -21,7 +21,6 @@ const create = (params, credentials, post) => {
 };
 
 const sellPostByID = (params, credentials) => {
-  
   return fetch("/api/sellposts/get/" + params.userId, {
     method: "GET",
     headers: {
@@ -39,4 +38,4 @@ const sellPostByID = (params, credentials) => {
     });
 };
 
-export { create,sellPostByID };
+export { create, sellPostByID };

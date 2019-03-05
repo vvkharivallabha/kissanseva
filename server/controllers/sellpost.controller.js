@@ -21,10 +21,10 @@ const create = (req, res, next) => {
   });
 };
 
-const sellPostByID = (req,res,id) => {
-SellPost.find({ postedBy: req.profile._id },function(err,sellposts){
-  res.json(sellposts);
-})
+const sellPostByID = (req, res, id) => {
+  SellPost.find({ postedBy: req.profile._id }, function(err, sellposts) {
+    res.json(sellposts);
+  });
 };
 
 export default {
