@@ -21,7 +21,8 @@
     "dev": "npm run development",
     "development": "nodemon",
     "build": " NPM_CONFIG_PRODUCTION=false webpack --config webpack.config.client.production.js && webpack --mode=production --config webpack.config.server.js",
-    "start": "NODE_ENV=production node ./dist/server.generated.js"
+    "start": "NODE_ENV=production node ./dist/server.generated.js",
+    "postinstall": "webpack -p"
   },
   "engines": {
     "node": "8.11.1",
