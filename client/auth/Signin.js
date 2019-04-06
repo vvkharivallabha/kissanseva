@@ -92,6 +92,7 @@ class Signin extends Component {
               {this.state.error}
             </Typography>)
           }
+          <a href="../core/Handler.js" >Login for Handler</a>
         </CardContent>
         <CardActions>
           <Button color="primary" variant="raised" onClick={this.clickSubmit} className={classes.submit}>Submit</Button>

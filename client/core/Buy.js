@@ -7,8 +7,7 @@ import seashellImg from "./../assets/images/seashell.jpg";
 import { Link } from "react-router-dom";
 import Grid from "material-ui/Grid";
 import auth from "./../auth/auth-helper";
-import FindPeople from "./../user/FindPeople";
-import Newsfeed from "./../post/Newsfeed";
+import Buyfeed from "./../post/Buyfeed";
 
 const styles = theme => ({
   root: {
@@ -37,7 +36,7 @@ class Buy extends Component {
       <div className={classes.root}>
         <Grid container spacing={24}>
           <Grid item xs={8} sm={7}>
-            <Newsfeed />
+            <Buyfeed />
           </Grid>
         </Grid>
       </div>

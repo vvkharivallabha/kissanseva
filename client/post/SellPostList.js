@@ -1,22 +1,26 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {withStyles} from 'material-ui/styles'
-import Post from './Post'
+import SellPost from './SellPost'
+import Grid from "material-ui/Grid"
+import Typography from 'material-ui/Typography'
 
 class SellPostList extends Component {
   render() {
     return (
       <div style={{marginTop: '24px'}}>
-        {this.props.posts.map((item, i) => {
-            return <Post post={item} key={i} onRemove={this.props.removeUpdate}/>
+      <Grid container  direction="column" justify ="space-around" alignItems = "flex-start">
+        {this.props.sellposts.map((item, i) => {
+            return <SellPost post={item} key={i} onRemove={this.props.removeUpdate}/>
           })
         }
+        </Grid>
       </div>
     )
   }
 }
-PostList.propTypes = {
-  posts: PropTypes.array.isRequired,
+SellPostList.propTypes = {
+  sellposts: PropTypes.array.isRequired,
   removeUpdate: PropTypes.func.isRequired
 }
-export default PostList
+export default SellPostList

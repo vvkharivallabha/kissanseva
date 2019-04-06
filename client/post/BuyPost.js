@@ -8,133 +8,82 @@ import Icon from "material-ui/Icon";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import auth from "../auth/auth-helper";
-import { sellPostByID } from "./api-sellpost";
 
 const styles = theme => ({
   root: {
-    backgroundColor: "#efefef",
+    backgroundColor: "#05c46b",
     padding: `${theme.spacing.unit * 3}px 0px 1px`
   },
   card: {
-    maxWidth: 600,
+    width: 290,
+    padding: 10,
     margin: "auto",
     marginBottom: theme.spacing.unit * 3,
-    backgroundColor: "rgba(65, 150, 136, 0.09)",
+    backgroundColor: "#d2dae2",
     boxShadow: "none"
   },
   cardContent: {
-    backgroundColor: "white",
-    paddingTop: 0,
-    paddingBottom: 0
+    backgroundColor: "#d2dae2",
+    paddingTop: 0
   },
   cardHeader: {
-    paddingTop: 8,
-    paddingBottom: 8
+    //marginLeft: "20%"
   },
-  photoButton: {
-    height: 30,
-    marginBottom: 5
-  },
-  input: {
-    display: "none"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    width: "90%"
-  },
-  submit: {
+  text: {
+    textAlign: "center",
     margin: theme.spacing.unit * 2
   },
-  filename: {
-    verticalAlign: "super"
+  photo: {
+    textAlign: "center",
+    backgroundColor: "#f2f5f4",
+    padding: theme.spacing.unit,
+    width: 200
+  },
+  media: {
+    height: 200
+  },
+  button: {
+    margin: theme.spacing.unit
   }
 });
 
 class BuyPost extends Component {
-  state = {
-    sellposts: []
-  };
+  // state = {
+  //   sellposts: []
+  // };
 
   componentDidMount = () => {
     this.setState({ user: auth.isAuthenticated().user });
-    this.loadSellPosts();
-  };
-
-  loadSellPosts = () => {
-    console.log("entered loadSellPosts");
-    const jwt = auth.isAuthenticated();
-    sellPostByID(
-      {
-        userId: user
-      },
-      {
-        t: jwt.token
-      }
-    ).then(data => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        this.setState({ sellposts: data });
-        console.log(sellposts);
-      }
-    });
-  };
-
-  handleChange = name => event => {
-    const value = event.target.value;
-    this.setState({ [name]: value });
-    console.log({ [name]: value });
   };
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={[classes.root]}>
         <Card className={classes.card}>
-          <CardHeader title={"Items"} className={classes.cardHeader} />
+          <CardHeader
+            title={this.props.post.product}
+            subheader={new Date(this.props.post.created).toDateString()}
+            className={classes.cardHeader}
+          />
           <CardContent className={classes.cardContent}>
-            <Typography component="p" className={classes.text}>
-              {this.props.post.product}
-            </Typography>
-            {/* {this.props.post.photo &&
-            (<div className={classes.photo}>
-              <img
-                className={classes.media}
-                src={'/api/posts/photo/'+this.props.post._id}
+            {this.props.post.photo && (
+              <div className={classes.photo}>
+                <img
+                  className={classes.media}
+                  src={"/api/sellposts/photo/" + this.props.post._id}
                 />
-            </div>)} */}
-            {/* <label htmlFor="icon-button-file">
-              <IconButton
-                color="secondary"
-                className={classes.photoButton}
-                component="span"
-              >
-                <PhotoCamera />
-              </IconButton>
-            </label>{" "}
-            <span className={classes.filename}>
-              {this.state.photo ? this.state.photo.name : ""}
-            </span> */}
-            {this.state.error && (
-              <Typography component="p" color="error">
-                <Icon color="error" className={classes.error}>
-                  error
-                </Icon>
-                {this.state.error}
-              </Typography>
+              </div>
             )}
+            <Typography component="p" className={classes.text}>
+              {this.props.post.product_description}
+            </Typography>
+            <Typography component="p" className={classes.text}>
+              Quantity: {this.props.post.product_quantity}
+            </Typography>
+            <Typography component="p" className={classes.text}>
+              Cost (Per Item): {this.props.post.totalcost}
+            </Typography>
           </CardContent>
-          <CardActions>
-            <Button
-              color="primary"
-              variant="raised"
-              disabled={this.state.text === ""}
-              onClick={this.clickPost}
-              className={classes.submit}
-            >
-              BUY
-            </Button>
-          </CardActions>
         </Card>
       </div>
     );

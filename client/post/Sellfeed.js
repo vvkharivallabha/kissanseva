@@ -5,19 +5,18 @@ import Card from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import Divider from "material-ui/Divider";
 import auth from "./../auth/auth-helper";
-import PostList from "./PostList";
-import { listNewsFeed } from "./api-post.js";
-import { sellPostByID } from "./api-sellpost.js";
+import SellPostList from "./SellPostList";
+import { listSellFeed } from "./api-sellpost.js";
 import NewSellPost from "./NewSellPost";
-import BuyPostList from "./BuyPostList";
-import NewPost from "./NewPost";
+import Grid from "material-ui/Grid";
 
 const styles = theme => ({
   card: {
-    maxWidth : 400,
-    margin: "left",
+    // maxWidth : 400,
+    //margin: "left",
     paddingTop: 0,
-    paddingBottom: theme.spacing.unit * 3
+    paddingBottom: theme.spacing.unit * 3,
+    height : 600
   },
   title: {
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2.5}px ${theme
@@ -27,6 +26,11 @@ const styles = theme => ({
   },
   media: {
     minHeight: 330
+  },
+  items: {
+    width: 350,
+    height: 500,
+    overflow: "auto"
   }
 });
 
@@ -41,15 +45,13 @@ const decide_path = () => {
   }
 };
 
-class Newsfeed extends Component {
+class Sellfeed extends Component {
   state = {
-    posts: [],
-    sellposts: [],
-    buyposts: []
+    sellposts: []
   };
   loadPosts = () => {
     const jwt = auth.isAuthenticated();
-    listNewsFeed(
+    listSellFeed(
       {
         userId: jwt.user._id
       },
@@ -60,7 +62,7 @@ class Newsfeed extends Component {
       if (data.error) {
         console.log(data.error);
       } else {
-        this.setState({ posts: data });
+        this.setState({ sellposts: data });
       }
     });
   };
@@ -68,26 +70,15 @@ class Newsfeed extends Component {
     this.loadPosts();
   };
   addPost = post => {
-    const updatedPosts = this.state.posts;
+    const updatedPosts = this.state.sellposts;
     updatedPosts.unshift(post);
-    this.setState({ posts: updatedPosts });
-  };
-  addSellPost = sellpost => {
-    const updatedSellPosts = this.state.sellposts;
-    updatedSellPosts.unshift(sellpost);
-    this.setState({ sellposts: updatedSellPosts });
+    this.setState({ sellposts: updatedPosts });
   };
   removePost = post => {
-    const updatedPosts = this.state.posts;
+    const updatedPosts = this.state.sellposts;
     const index = updatedPosts.indexOf(post);
     updatedPosts.splice(index, 1);
-    this.setState({ posts: updatedPosts });
-  };
-  removeSellPost = sellpost => {
-    const updatedSellPosts = this.state.sellposts;
-    const index = updatedSellPosts.indexOf(sellpost);
-    updatedSellPosts.splice(index, 1);
-    this.setState({ sellposts: updatedSellPosts });
+    this.setState({ sellposts: updatedPosts });
   };
   render() {
     const { classes } = this.props;
@@ -97,22 +88,32 @@ class Newsfeed extends Component {
           {decide_path()}
         </Typography>
         <Divider />
-        {window.location.pathname == "/sell" && (
-          <NewSellPost addUpdate={this.addSellPost} />
-        )}
-        {window.location.pathname == "/" && (
-          <NewPost addUpdate={this.addPost} />
-        )}
-        <Divider />
-        {window.location.pathname == "/" && (
-          <PostList removeUpdate={this.removePost} posts={this.state.posts} />
-        )}
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="flex-start"
+        >
+          <Grid item>
+            <NewSellPost addUpdate={this.addPost} />
+          </Grid>
+          <Card className={classes.items}>
+            <div style={{ marginLeft: "24px" }}>
+              <Grid item>
+                <SellPostList
+                  removeUpdate={this.removePost}
+                  sellposts={this.state.sellposts}
+                />
+              </Grid>
+            </div>
+          </Card>
+        </Grid>
       </Card>
     );
   }
 }
-Newsfeed.propTypes = {
+Sellfeed.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Newsfeed);
+export default withStyles(styles)(Sellfeed);

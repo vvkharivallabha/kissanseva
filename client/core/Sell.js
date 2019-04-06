@@ -5,10 +5,9 @@ import Card, { CardContent, CardMedia } from "material-ui/Card";
 import Typography from "material-ui/Typography";
 import seashellImg from "./../assets/images/seashell.jpg";
 import { Link } from "react-router-dom";
-import Grid from "material-ui/Grid";
 import auth from "./../auth/auth-helper";
-import FindPeople from "./../user/FindPeople";
-import Newsfeed from "./../post/Newsfeed";
+import Grid from "material-ui/Grid";
+import Sellfeed from "./../post/Sellfeed";
 
 const styles = theme => ({
   root: {
@@ -26,7 +25,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary
   },
   media: {
-    minHeight: 330
+    //minHeight: 330
   }
 });
 
@@ -36,14 +35,7 @@ class Sell extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs={8} sm={7}>
-            <Newsfeed />
-          </Grid>
-          {/* <Grid item xs={6} sm={5}>
-            <FindPeople />
-          </Grid> */}
-        </Grid>
+            <Sellfeed />
       </div>
     );
   }

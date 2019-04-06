@@ -1,15 +1,11 @@
 const create = (params, credentials, post) => {
-  console.log(params);
-  console.log(credentials);
-  console.log(JSON.stringify(post));
   return fetch("/api/sellposts/new/" + params.userId, {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
       Authorization: "Bearer " + credentials.t
     },
-    body: JSON.stringify(post)
+    body: post
   })
     .then(response => {
       return response.json();
@@ -20,8 +16,8 @@ const create = (params, credentials, post) => {
     });
 };
 
-const sellPostByID = (params, credentials) => {
-  return fetch("/api/sellposts/get/" + params.userId, {
+const listSellFeed = (params, credentials) => {
+  return fetch("/api/sellposts/feed/" + params.userId, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -32,10 +28,34 @@ const sellPostByID = (params, credentials) => {
     .then(response => {
       return response.json();
     })
+    .catch(err => console.log(err));
+};
 
+const listItems = () => {
+  return fetch("/api/items/", {
+    method: "GET"
+  })
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
+const remove = (params, credentials) => {
+  return fetch("/api/sellposts/" + params.postId, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + credentials.t
+    }
+  })
+    .then(response => {
+      return response.json();
+    })
     .catch(err => {
       console.log(err);
     });
 };
 
-export { create, sellPostByID };
+export { create, remove, listSellFeed, listItems };
