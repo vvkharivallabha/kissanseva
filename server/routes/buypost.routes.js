@@ -9,6 +9,7 @@ router
   .route("/api/buyposts/new/:userId")
   .post(authCtrl.requireSignin, buyPostCtrl.create);
 
+
 router.route("/api/buyposts/photo/:postId").get(buyPostCtrl.photo);
 
 router

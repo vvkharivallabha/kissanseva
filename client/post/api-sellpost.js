@@ -1,4 +1,4 @@
-const create = (params, credentials, post) => {
+const create_sell = (params, credentials, post) => {
   return fetch("/api/sellposts/new/" + params.userId, {
     method: "POST",
     headers: {
@@ -51,7 +51,7 @@ const listItems = () => {
     .catch(err => console.log(err));
 };
 
-const remove = (params, credentials) => {
+const remove_sell = (params, credentials) => {
   return fetch("/api/sellposts/" + params.postId, {
     method: "DELETE",
     headers: {
@@ -68,4 +68,4 @@ const remove = (params, credentials) => {
     });
 };
 
-export { create, remove, listSellFeed, listItems,listAllSellFeed };
+export { create_sell, remove_sell, listSellFeed, listItems, listAllSellFeed };

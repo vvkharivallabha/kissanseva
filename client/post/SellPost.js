@@ -12,7 +12,7 @@ import Divider from 'material-ui/Divider'
 import PropTypes from 'prop-types'
 import {withStyles} from 'material-ui/styles'
 import {Link} from 'react-router-dom'
-import {remove} from './api-sellpost.js'
+import {remove_sell} from './api-sellpost.js'
 
 
 const styles = theme => ({
@@ -63,7 +63,8 @@ class SellPost extends Component {
 
   deletePost = () => {
     const jwt = auth.isAuthenticated()
-    remove({
+    console.log(this.props.post._id);
+    remove_sell({
       postId: this.props.post._id
     }, {
       t: jwt.token

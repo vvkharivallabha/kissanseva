@@ -16,7 +16,7 @@ const styles = theme => ({
     //margin: "left",
     paddingTop: 0,
     paddingBottom: theme.spacing.unit * 3,
-    height : 600
+    height: 600
   },
   title: {
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2.5}px ${theme
@@ -95,10 +95,16 @@ class Sellfeed extends Component {
           alignItems="flex-start"
         >
           <Grid item>
-            <NewSellPost sellposts={this.state.sellposts} addUpdate={this.addPost} />
+            <NewSellPost
+              sellposts={this.state.sellposts}
+              addUpdate={this.addPost}
+            />
           </Grid>
           <Card className={classes.items}>
-            <div style={{ marginLeft: "24px" }}>
+            <div
+              style={{ marginLeft: "24px" }}
+              className="scrollbar scrollbar-primary"
+            >
               <Grid item>
                 <SellPostList
                   removeUpdate={this.removePost}

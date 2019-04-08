@@ -16,11 +16,19 @@ const BuyPostSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String
   },
+  trans_id: {
+    type: String,
+    trim: true
+  },
+  verified: {
+    type: String,
+    trim: true
+  },
   postedBy: { type: mongoose.Schema.ObjectId, ref: "User" },
   created: {
     type: Date,
     default: Date.now
   }
 });
-BuyPostSchema.set('autoIndex', false);
+// BuyPostSchema.set('autoIndex', false);
 export default mongoose.model("BuyPost", BuyPostSchema);

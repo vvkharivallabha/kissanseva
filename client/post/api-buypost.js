@@ -48,4 +48,4 @@ const remove = (params, credentials) => {
     });
 };
 
-export { create,listBuyFeed,remove };
+export { create, listBuyFeed, remove };

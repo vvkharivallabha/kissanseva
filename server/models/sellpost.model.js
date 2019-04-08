@@ -32,5 +32,5 @@ const SellPostSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-SellPostSchema.set("autoIndex", false);
+// SellPostSchema.set("autoIndex", false);
 export default mongoose.model("SellPost", SellPostSchema);

@@ -14,7 +14,6 @@ const isActive = (history, path) => {
   else return { color: "#ffffff" };
 };
 
-
 const Menu = withRouter(({ history }) => (
   <AppBar position="static">
     <Toolbar>
@@ -45,6 +44,11 @@ const Menu = withRouter(({ history }) => (
           )}
           {auth.isAuthenticated() && (
             <span>
+              {auth.isAuthenticated().user.role === "Admin" && (
+                <Link to="/admin">
+                  <Button>ADMIN</Button>
+                </Link>
+              )}
               {(auth.isAuthenticated().user.role === "Farmer" ||
                 auth.isAuthenticated().user.role === "Retailer") && (
                 <Link to="/buy">

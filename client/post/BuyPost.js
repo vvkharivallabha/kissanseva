@@ -63,11 +63,13 @@ class BuyPost extends Component {
 
   clickPost = () => {
     this.postData.set("product_quantity", this.state.product_quantity);
+    this.postData.set("purchased", "false");
     console.log(this.postData.product);
     this.props.post.product_quantity =
       this.props.post.product_quantity - this.state.product_quantity;
     this.state.product_quantity = 0;
     const jwt = auth.isAuthenticated();
+    console.log(this.postData);
     create(
       {
         userId: jwt.user._id
@@ -89,6 +91,7 @@ class BuyPost extends Component {
     this.setState({ user: auth.isAuthenticated().user });
     this.setState({ user: auth.isAuthenticated().user });
     this.postData = new FormData();
+    console.log(this.props.post);
   };
   handleChange = name => event => {
     let value = name === "photo" ? event.target.files[0] : event.target.value;

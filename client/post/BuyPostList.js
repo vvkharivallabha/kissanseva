@@ -13,7 +13,7 @@ const styles = theme => ({
     //margin: "left",
     paddingTop: 0,
     paddingBottom: theme.spacing.unit * 3,
-    height : 600
+    height: 600
   },
   title: {
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2.5}px ${theme
@@ -44,59 +44,26 @@ class BuyPostList extends Component {
   };
   render() {
     //console.log(this.props.buyposts);
-    for(let i=0;i<this.props.buyposts.length;i++)
-    {
-      if(auth.isAuthenticated().user.role === "Retailer")
-      {
-        if(this.props.buyposts[i].postedRole === "Supplier")
-        {
-          this.props.buyposts[i] =0 ;
-        }
-      }
-      if(auth.isAuthenticated().user.role === "Farmer")
-      {
-        if(this.props.buyposts[i].postedRole === "Farmer")
-        {
-          console.log(this.props.buyposts[i].postedRole);
-          this.props.buyposts[i] =0;
-        }
-      }
-    }
-    let array = [];
-    for(let i=0;i<this.props.buyposts.length;i++)
-    {
-      if(this.props.buyposts[i]!=0)
-      {
-        array.push(this.props.buyposts[i]);
-      }
-    }
+    // for (let i = 0; i < this.props.buyposts.length; i++) {
+    //   if (auth.isAuthenticated().user.role === "Retailer") {
+    //     if (this.props.buyposts[i].postedRole === "Supplier") {
+    //       this.props.buyposts[i] = 0;
+    //     }
+    //   }
+    //   if (auth.isAuthenticated().user.role === "Farmer") {
+    //     if (this.props.buyposts[i].postedRole === "Farmer") {
+    //       console.log(this.props.buyposts[i].postedRole);
+    //       this.props.buyposts[i] = 0;
+    //     }
+    //   }
+    // }
+    // let array = [];
+    // for (let i = 0; i < this.props.buyposts.length; i++) {
+    //   if (this.props.buyposts[i] != 0) {
+    //     array.push(this.props.buyposts[i]);
+    //   }
+    // }
     //console.log(array);
-
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array.length; j++) {
-        if (
-          i != j &&
-          array[i].product === array[j].product
-        ) {
-          if (array.photo !== undefined) {
-            array[i].product_quantity =
-              parseInt(array[i].product_quantity) +
-              parseInt(array[j].product_quantity);
-              array.splice(j, 1);
-          } else if (array[j].photo !== undefined) {
-            array[j].product_quantity =
-              parseInt(array[i].product_quantity) +
-              parseInt(array[j].product_quantity);
-              array.splice(i, 1);
-          } else {
-            array[i].product_quantity =
-              parseInt(array[i].product_quantity) +
-              parseInt(array[j].product_quantity);
-              array.splice(j, 1);
-          }
-        }
-      }
-    }
 
     return (
       <div style={{ marginTop: "24px" }}>
@@ -106,10 +73,8 @@ class BuyPostList extends Component {
           justify="space-around"
           alignItems="flex-start"
         >
-          {array.map((item, i) => {
-            return (
-              <BuyPost post={item} key={i} addUpdate={this.addPost} />
-            );
+          {this.props.buyposts.map((item, i) => {
+            return <BuyPost post={item} key={i} addUpdate={this.addPost} />;
           })}
         </Grid>
       </div>

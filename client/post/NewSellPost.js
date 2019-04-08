@@ -7,7 +7,7 @@ import Avatar from "material-ui/Avatar";
 import Icon from "material-ui/Icon";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import { create, listItems } from "./api-sellpost.js";
+import { create_sell, listItems } from "./api-sellpost.js";
 import auth from "../auth/auth-helper";
 import IconButton from "material-ui/IconButton";
 import PhotoCamera from "material-ui-icons/PhotoCamera";
@@ -135,7 +135,7 @@ class NewSellPost extends Component {
     });
     this.postData.set("postedRole", this.state.user.role);
     const jwt = auth.isAuthenticated();
-    create(
+    create_sell(
       {
         userId: jwt.user._id
       },
