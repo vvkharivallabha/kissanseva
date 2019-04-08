@@ -10,6 +10,7 @@ import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 import postRoutes from "./routes/post.routes";
 import sellpostRoutes from "./routes/sellpost.routes";
+import buypostRoutes from "./routes/buypost.routes";
 
 // modules for server side rendering
 import React from "react";
@@ -53,6 +54,7 @@ app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use("/", postRoutes);
 app.use("/", sellpostRoutes);
+app.use("/", buypostRoutes);
 
 app.get("*", (req, res) => {
   const sheetsRegistry = new SheetsRegistry();

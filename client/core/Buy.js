@@ -34,11 +34,7 @@ class Buy extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
-          <Grid item xs={8} sm={7}>
             <Buyfeed />
-          </Grid>
-        </Grid>
       </div>
     );
   }

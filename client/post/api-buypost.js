@@ -1,5 +1,5 @@
 const create = (params, credentials, post) => {
-  return fetch("/api/sellposts/new/" + params.userId, {
+  return fetch("/api/buyposts/new/" + params.userId, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -16,8 +16,8 @@ const create = (params, credentials, post) => {
     });
 };
 
-const listSellFeed = (params, credentials) => {
-  return fetch("/api/sellposts/feed/" + params.userId, {
+const listBuyFeed = (params, credentials) => {
+  return fetch("/api/buyposts/feed/" + params.userId, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -31,28 +31,8 @@ const listSellFeed = (params, credentials) => {
     .catch(err => console.log(err));
 };
 
-const listAllSellFeed = () => {
-  return fetch("/api/sellposts/", {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .catch(err => console.log(err));
-};
-
-const listItems = () => {
-  return fetch("/api/items/", {
-    method: "GET"
-  })
-    .then(response => {
-      return response.json();
-    })
-    .catch(err => console.log(err));
-};
-
 const remove = (params, credentials) => {
-  return fetch("/api/sellposts/" + params.postId, {
+  return fetch("/api/buyposts/" + params.postId, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -68,4 +48,4 @@ const remove = (params, credentials) => {
     });
 };
 
-export { create, remove, listSellFeed, listItems,listAllSellFeed };
+export { create,listBuyFeed,remove };

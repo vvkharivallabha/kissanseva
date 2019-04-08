@@ -95,7 +95,7 @@ class Sellfeed extends Component {
           alignItems="flex-start"
         >
           <Grid item>
-            <NewSellPost addUpdate={this.addPost} />
+            <NewSellPost sellposts={this.state.sellposts} addUpdate={this.addPost} />
           </Grid>
           <Card className={classes.items}>
             <div style={{ marginLeft: "24px" }}>

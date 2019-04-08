@@ -14,10 +14,10 @@ router
 
   router.route('/api/sellposts/feed/:userId')
   .get(authCtrl.requireSignin, sellPostCtrl.listSellFeed)
+  router.route('/api/sellposts/')
+  .get(sellPostCtrl.listAllSellFeed)
   router.route('/api/items')
   .get(sellPostCtrl.listItems)
-  // router.route('/api/items/:itemId&:userId')
-  // .get(sellPostCtrl.getItemQuantity)
   router.route('/api/sellposts/:postId')
   .delete(authCtrl.requireSignin, sellPostCtrl.isPoster, sellPostCtrl.remove)
 

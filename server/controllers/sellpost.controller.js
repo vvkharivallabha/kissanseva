@@ -76,6 +76,17 @@ const listSellFeed = (req, res) => {
     });
 };
 
+const listAllSellFeed = (req, res) => {
+  SellPost.find((err, posts) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.json(posts);
+    });
+};
+
 const listItems = (req, res) => {
   Item.find((err, items) => {
     if (err) {
@@ -122,5 +133,6 @@ export default {
   remove,
   isPoster,
   listItems,
+  listAllSellFeed
   //getItemQuantity
 };

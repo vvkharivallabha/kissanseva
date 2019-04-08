@@ -29,6 +29,10 @@ const config = {
       }
     ]
   },
+  node:{
+    fs : 'empty',
+    tls : 'empty'
+  },
   devServer: {
     historyApiFallback: true
   },

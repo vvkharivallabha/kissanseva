@@ -8,6 +8,7 @@ import Icon from "material-ui/Icon";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import auth from "../auth/auth-helper";
+import { create } from "./api-buypost.js";
 
 const styles = theme => ({
   root: {
@@ -44,16 +45,86 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit
+  },
+  submit: {
+    marginLeft: "25%"
   }
 });
 
 class BuyPost extends Component {
-  // state = {
-  //   sellposts: []
-  // };
+  state = {
+    product: "",
+    product_quantity: 0,
+    photo: "",
+    error: "",
+    user: {},
+    open: false
+  };
+
+  clickPost = () => {
+    this.postData.set("product_quantity", this.state.product_quantity);
+    console.log(this.postData.product);
+    this.props.post.product_quantity =
+      this.props.post.product_quantity - this.state.product_quantity;
+    this.state.product_quantity = 0;
+    const jwt = auth.isAuthenticated();
+    create(
+      {
+        userId: jwt.user._id
+      },
+      {
+        t: jwt.token
+      },
+      this.postData
+    ).then(data => {
+      if (data.error) {
+        this.setState({ error: data.error });
+      } else {
+        this.props.addUpdate(data);
+      }
+    });
+  };
 
   componentDidMount = () => {
     this.setState({ user: auth.isAuthenticated().user });
+    this.setState({ user: auth.isAuthenticated().user });
+    this.postData = new FormData();
+  };
+  handleChange = name => event => {
+    let value = name === "photo" ? event.target.files[0] : event.target.value;
+    if (name === "product_quantity_1") {
+      if (
+        this.state.product_quantity >= 0 &&
+        this.state.product_quantity < this.props.post.product_quantity
+      )
+        this.setState({
+          ["product_quantity"]: parseInt(this.state.product_quantity) + 1
+        });
+
+      this.postData.set("product", this.props.post.product);
+      this.postData.set("product_quantity", this.state.product_quantity);
+      this.postData.set(
+        "totalcost",
+        this.props.post.totalcost * this.state.product_quantity
+      );
+      this.postData.set("photo", this.props.post.photo);
+    } else if (name === "product_quantity_2") {
+      if (
+        this.state.product_quantity > 0 &&
+        this.state.product_quantity <= this.props.post.product_quantity
+      )
+        this.setState({
+          ["product_quantity"]: parseInt(this.state.product_quantity) - 1
+        });
+
+      this.postData.set("product", this.props.post.product);
+      this.postData.set("product_quantity", this.state.product_quantity);
+      this.postData.set(
+        "totalcost",
+        this.props.post.totalcost * this.state.product_quantity
+      );
+      this.postData.set("photo", this.props.post.photo);
+    }
   };
   render() {
     const { classes } = this.props;
@@ -83,7 +154,39 @@ class BuyPost extends Component {
             <Typography component="p" className={classes.text}>
               Cost (Per Item): {this.props.post.totalcost}
             </Typography>
+            <Typography className={classes.submit}>
+              Select Req Quantity
+            </Typography>
+            <Button
+              className={classes.submit}
+              variant="contained"
+              size="small"
+              onClick={this.handleChange("product_quantity_1")}
+            >
+              +
+            </Button>
+            <label onChange={this.handleChange("product_quantity")}>
+              {this.state.product_quantity}
+            </label>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={this.handleChange("product_quantity_2")}
+            >
+              -
+            </Button>
           </CardContent>
+          <CardActions>
+            <Button
+              color="primary"
+              variant="raised"
+              disabled={this.state.product_quantity === 0}
+              onClick={this.clickPost}
+              className={classes.submit}
+            >
+              SAVE TO CART
+            </Button>
+          </CardActions>
         </Card>
       </div>
     );
@@ -93,7 +196,7 @@ class BuyPost extends Component {
 BuyPost.propTypes = {
   classes: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
-  onRemove: PropTypes.func.isRequired
+  addUpdate: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(BuyPost);

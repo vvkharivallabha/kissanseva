@@ -127,6 +127,15 @@ class NewSellPost extends Component {
     });
   };
   clickPost = () => {
+    console.log(this.postData.product);
+    this.props.sellposts.map((item, i) =>{
+      console.log(this.props.sellposts[i].product);
+      if(item.product === this.postData.product)
+      {
+        this.postData.set("product_quantity",this.postData.product_quantity+item.product_quantity);
+        console.log(item.product);
+      }
+    });
     this.postData.set("postedRole", this.state.user.role);
     const jwt = auth.isAuthenticated();
     create(
@@ -188,20 +197,6 @@ class NewSellPost extends Component {
             className={classes.cardHeader}
           />
           <CardContent className={classes.cardContent}>
-            {/* <TextField
-              placeholder="Product Name"
-              value={this.state.product}
-              onChange={this.handleChange("product")}
-              className={classes.textField}
-              margin="normal"
-            />
-            <Button
-              aria-owns={anchorEl ? 'simple-menu' : undefined}
-              aria-haspopup="true"
-              onClick={this.handleClick}
-            >
-              Products
-            </Button> */}
             <List component="nav">
               <ListItem
                 button
@@ -298,6 +293,7 @@ class NewSellPost extends Component {
 
 NewSellPost.propTypes = {
   classes: PropTypes.object.isRequired,
+  sellposts: PropTypes.array.isRequired,
   addUpdate: PropTypes.func.isRequired
 };
 
