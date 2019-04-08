@@ -22,5 +22,5 @@ const BuyPostSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+BuyPostSchema.set('autoIndex', false);
 export default mongoose.model("BuyPost", BuyPostSchema);

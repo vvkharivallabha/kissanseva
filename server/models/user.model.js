@@ -77,5 +77,5 @@ UserSchema.methods = {
     return Math.round(new Date().valueOf() * Math.random()) + "";
   }
 };
-
+UserSchema.set("autoIndex", false);
 export default mongoose.model("User", UserSchema);

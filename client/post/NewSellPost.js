@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import Card, { CardHeader, CardContent, CardActions } from "material-ui/Card";
-import Button from 'material-ui/Button';
+import Button from "material-ui/Button";
 import TextField from "material-ui/TextField";
 import Typography from "material-ui/Typography";
 import Avatar from "material-ui/Avatar";
 import Icon from "material-ui/Icon";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import { create,listItems } from "./api-sellpost.js";
+import { create, listItems } from "./api-sellpost.js";
 import auth from "../auth/auth-helper";
 import IconButton from "material-ui/IconButton";
-import PhotoCamera from "material-ui-icons/PhotoCamera"; 
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/Menu/MenuItem'
-import List from 'material-ui/List'
-import ListItem from 'material-ui/List/ListItem'
-import ListItemText from 'material-ui/List/ListItemText'
+import PhotoCamera from "material-ui-icons/PhotoCamera";
+import Menu from "material-ui/Menu";
+import MenuItem from "material-ui/Menu/MenuItem";
+import List from "material-ui/List";
+import ListItem from "material-ui/List/ListItem";
+import ListItemText from "material-ui/List/ListItemText";
 
-let count=0
+let count = 0;
 const styles = theme => ({
   root: {
     backgroundColor: "#05c46b",
-    padding: `${theme.spacing.unit * 3}px 0px 1px`,
+    padding: `${theme.spacing.unit * 3}px 0px 1px`
   },
   card: {
     maxWidth: 400,
@@ -51,7 +51,7 @@ const styles = theme => ({
     width: "90%"
   },
   button: {
-    color : "#d2dae2"
+    color: "#d2dae2"
   },
   submit: {
     marginLeft: "35%"
@@ -63,15 +63,15 @@ const styles = theme => ({
 
 class NewSellPost extends Component {
   state = {
-    items:[],
+    items: [],
     product: "",
     product_description: "",
     product_quantity: 0,
     photo: "",
     error: "",
     anchorEl: null,
-    index:1,
-    totalcost : "",
+    index: 1,
+    totalcost: "",
     user: {},
     open: false
   };
@@ -87,26 +87,20 @@ class NewSellPost extends Component {
     this.setState({ anchorEl: null });
   };
   itemvalue = () => {
-    if (this.state.items[this.state.index] === undefined)
-    {
+    if (this.state.items[this.state.index] === undefined) {
       return "Please select option";
-    }
-    else
-    {
+    } else {
       this.state.product = this.state.items[this.state.index].product_name;
-      this.postData.set("product",this.state.product)
+      this.postData.set("product", this.state.product);
       return this.state.items[this.state.index].product_name;
     }
   };
   itemcost = () => {
-    if (this.state.items[this.state.index] === undefined)
-    {
+    if (this.state.items[this.state.index] === undefined) {
       return "Please select option";
-    }   
-    else
-    {
+    } else {
       this.state.totalcost = this.state.items[this.state.index].cost;
-      this.postData.set("totalcost",this.state.totalcost)
+      this.postData.set("totalcost", this.state.totalcost);
       return this.state.items[this.state.index].cost;
     }
   };
@@ -123,16 +117,19 @@ class NewSellPost extends Component {
         console.log(data.error);
       } else {
         this.setState({ items: data });
+        console.log(this.state.items);
       }
     });
   };
   clickPost = () => {
     console.log(this.postData.product);
-    this.props.sellposts.map((item, i) =>{
+    this.props.sellposts.map((item, i) => {
       console.log(this.props.sellposts[i].product);
-      if(item.product === this.postData.product)
-      {
-        this.postData.set("product_quantity",this.postData.product_quantity+item.product_quantity);
+      if (item.product === this.postData.product) {
+        this.postData.set(
+          "product_quantity",
+          this.postData.product_quantity + item.product_quantity
+        );
         console.log(item.product);
       }
     });
@@ -150,12 +147,12 @@ class NewSellPost extends Component {
       if (data.error) {
         this.setState({ error: data.error });
       } else {
-        count=0;
+        count = 0;
         this.setState({
           product: "",
           product_description: "",
           product_quantity: "",
-          totalcost:"",
+          totalcost: "",
           photo: "",
           error: "",
           index: 1,
@@ -167,21 +164,16 @@ class NewSellPost extends Component {
   };
   handleChange = name => event => {
     let value = name === "photo" ? event.target.files[0] : event.target.value;
-    if(name==="product_quantity_1")
-    {
-      name="product_quantity";
-      if(count >= 0 && count < 10)
-      count = count+1;
-      value=count;
-      this.postData.set("totalcost",this.state.totalcost*count);
-    }
-    else if(name==="product_quantity_2")
-    {
-      name="product_quantity";
-      if(count > 0 && count <= 10)
-      count = count-1;
-      value=count;
-      this.postData.set("totalcost",this.state.totalcost*count);
+    if (name === "product_quantity_1") {
+      name = "product_quantity";
+      if (count >= 0 && count < 10) count = count + 1;
+      value = count;
+      this.postData.set("totalcost", this.state.totalcost * count);
+    } else if (name === "product_quantity_2") {
+      name = "product_quantity";
+      if (count > 0 && count <= 10) count = count - 1;
+      value = count;
+      this.postData.set("totalcost", this.state.totalcost * count);
     }
     this.postData.set(name, value);
     this.setState({ [name]: value });
@@ -190,7 +182,7 @@ class NewSellPost extends Component {
     const { anchorEl } = this.state;
     const { classes } = this.props;
     return (
-      <div className={[classes.root]}  style={{marginTop: '24px'}}>
+      <div className={[classes.root]} style={{ marginTop: "24px" }}>
         <Card className={classes.card}>
           <CardHeader
             title={"Add Single Listing"}
@@ -206,19 +198,34 @@ class NewSellPost extends Component {
                 onClick={this.handleClickListItem}
                 className={classes.textField}
               >
-              <ListItemText className={classes.textField} primary="Product" secondary = {this.itemvalue()}/>
-              <ListItemText className={classes.textField} primary="Cost" secondary = {this.itemcost()}/>
+                <ListItemText
+                  className={classes.textField}
+                  primary="Product"
+                  secondary={this.itemvalue()}
+                />
+                <ListItemText
+                  className={classes.textField}
+                  primary="Cost"
+                  secondary={this.itemcost()}
+                />
               </ListItem>
             </List>
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
-              onClose={this.handleClose}>
-              {this.state.items.map((it,i) => {
-                return <MenuItem selected={i === this.state.index} onClick={event => this.handleMenuItemClick(event, i)}>{it.product_name}</MenuItem>
-              })
-              }
+              onClose={this.handleClose}
+            >
+              {this.state.items.map((it, i) => {
+                return (
+                  <MenuItem
+                    selected={i === this.state.index}
+                    onClick={event => this.handleMenuItemClick(event, i)}
+                  >
+                    {it.product_name}
+                  </MenuItem>
+                );
+              })}
             </Menu>
             <TextField
               placeholder="Product Description"
@@ -227,15 +234,31 @@ class NewSellPost extends Component {
               className={classes.textField}
               margin="normal"
             />
+            <Typography className={classes.textField}>Quantity</Typography>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={this.handleChange("product_quantity_1")}
+            >
+              +
+            </Button>
+            <label
+              value={count}
+              className={classes.textField}
+              onChange={this.handleChange("product_quantity")}
+            >
+              {this.state.product_quantity}
+            </label>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={this.handleChange("product_quantity_2")}
+            >
+              -
+            </Button>
             <Typography className={classes.textField}>
-              Quantity
+              Total Cost : {this.itemcost() * this.state.product_quantity}
             </Typography>
-              <Button variant="contained" size = "small"  onClick={this.handleChange("product_quantity_1")}>+</Button>
-              <label value={count} className={classes.textField} onChange={this.handleChange("product_quantity")}>{this.state.product_quantity}</label>
-              <Button variant="contained" size = "small" onClick={this.handleChange("product_quantity_2")}>-</Button>
-            <Typography className={classes.textField}>
-              Total Cost : {this.itemcost()*this.state.product_quantity}
-             </Typography>
             <Typography className={classes.textField}>
               Product picture
             </Typography>
@@ -278,7 +301,9 @@ class NewSellPost extends Component {
             <Button
               color="primary"
               variant="raised"
-              disabled={this.state.product === "" || this.state.product_quantity=== ""}
+              disabled={
+                this.state.product === "" || this.state.product_quantity === ""
+              }
               onClick={this.clickPost}
               className={classes.submit}
             >

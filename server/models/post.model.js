@@ -21,5 +21,5 @@ const PostSchema = new mongoose.Schema({
     default: Date.now
   }
 })
-
+PostSchema.set('autoIndex', false);
 export default mongoose.model('Post', PostSchema)

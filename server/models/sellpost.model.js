@@ -18,7 +18,7 @@ const SellPostSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  postedRole : {
+  postedRole: {
     type: String,
     trim: true
   },
@@ -32,5 +32,5 @@ const SellPostSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+SellPostSchema.set("autoIndex", false);
 export default mongoose.model("SellPost", SellPostSchema);
