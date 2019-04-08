@@ -11,16 +11,16 @@ import { listBuyFeed } from "./api-buypost.js";
 import Grid from "material-ui/Grid";
 import CartList from "./CartList";
 import Button from "material-ui/Button";
-var Insta = require("instamojo-nodejs");
-Insta.setKeys(
-  "test_f20f9dc80528b489a831c6a36ec",
-  "test_100010d904439711ab2e5f9e910"
-);
-Insta.isSandboxMode(true);
-var data = new Insta.PaymentData();
-data.purpose = "Test"; // REQUIRED
-data.amount = 9; // REQUIRED
-data.setRedirectUrl("https://google.co.in");
+// var Insta = require("instamojo-nodejs");
+// Insta.setKeys(
+//   "test_f20f9dc80528b489a831c6a36ec",
+//   "test_100010d904439711ab2e5f9e910"
+// );
+// Insta.isSandboxMode(true);
+// var data = new Insta.PaymentData();
+// data.purpose = "Test"; // REQUIRED
+// data.amount = 9; // REQUIRED
+// data.setRedirectUrl("https://google.co.in");
 
 const styles = theme => ({
   card: {
@@ -105,15 +105,15 @@ class Buyfeed extends Component {
     });
   };
   purchase = () => {
-    Insta.createPayment(data, function(error, response) {
-      if (error) {
-        // some error
-        console.log(error);
-      } else {
-        // Payment redirection link at response.payment_request.longurl
-        console.log(response);
-      }
-    });
+    // Insta.createPayment(data, function(error, response) {
+    //   if (error) {
+    //     // some error
+    //     console.log(error);
+    //   } else {
+    //     // Payment redirection link at response.payment_request.longurl
+    //     console.log(response);
+    //   }
+    // });
   };
 
   computecost = () => {

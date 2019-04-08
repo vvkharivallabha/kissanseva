@@ -31,7 +31,8 @@ const config = {
   },
   node:{
     fs : 'empty',
-    tls : 'empty'
+    tls : 'empty',
+    net : 'empty'
   },
   devServer: {
     historyApiFallback: true
