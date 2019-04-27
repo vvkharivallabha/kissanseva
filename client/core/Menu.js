@@ -46,7 +46,14 @@ const Menu = withRouter(({ history }) => (
             <span>
               {auth.isAuthenticated().user.role === "Admin" && (
                 <Link to="/admin">
-                  <Button>ADMIN</Button>
+                  <Button
+                    style={isActive(
+                      history,
+                      "/user/" + auth.isAuthenticated().user._admin
+                    )}
+                  >
+                    ADMIN
+                  </Button>
                 </Link>
               )}
               {(auth.isAuthenticated().user.role === "Farmer" ||
